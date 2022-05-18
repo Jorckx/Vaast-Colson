@@ -1,98 +1,69 @@
 <template>
-  <main v-if="voucher == 'true'" id="main" data-id="activated">
-    <h1 class="andonandonandon" id="andonandonandon">
-      <span class="andonandonandon-input">&nbsp;And on and on and on </span>
-      <!-- duplicate above, change style to allow continous scroll -->
-      <span class="andonandonandon-input2"
-        >&nbsp;And on and on and on&nbsp;</span
-      >
-    </h1>
-    <div class="time"></div>
-    <p id="ref" class="info" :key="info">info</p>
-  </main>
-  <main v-else id="main" data-id="notactivated">
+  <main id="main" data-id="notactivated">
     <h1 @mouseover="showForm" @mouseout="hideForm">{{ title }}</h1>
-    <form action="submit" method="post" id="form">
-      <textarea
+    <form @submit.prevent="postData" id="form">
+      <input
         id="voucherField"
-        v-model="voucherInput"
+        name="voucher"
+        class="voucherField"
         oninput="this.value = this.value.replace(/\n/g,'')"
-        @click="clearText"
-        placeholder="|"
-      ></textarea>
-      <button id="submit">submit</button>
+        type="text"
+      />
+
+      <div v-if="posts.voucher == 'ee2e2'">
+        <label for="voucherfield">correct!</label>
+        <input type="text" id="date" name="date" :value="posts.date" hidden />
+        <input type="text" id="time" name="time" :value="posts.ime" hidden />
+        <input type="submit" label="submit" hidden />
+      </div>
+      <label v-else for="voucherfield"></label>
     </form>
   </main>
 </template>
 
 <script>
 export default {
-  setup() {
-    AOS.init();
-    return {
-      page: usePage(),
-    };
-  },
+  name: "addVoucher",
+
   data() {
+    const d = new Date();
     return {
       title: "Vaast Colson",
-      voucher: "",
+      posts: {
+        voucher: null,
+        date: d.toISOString().substr(0, 10),
+        time:
+          d.getHours() + "h " + d.getMinutes() + "m " + d.getSeconds() + "s",
+      },
     };
   },
   methods: {
-    clearText() {
-      const text = document.getElementById("voucherField");
-      text.placeholder = " ";
+    postData() {
+      this.axios
+        .post("http://localhost:3000/posts/", this.posts)
+        .then((result) => {
+          console.warn(result);
+        });
+      e.preventDefault();
     },
     showForm() {
+      const text = document.getElementById("voucherField");
       const form = document.getElementById("form");
       form.classList.add("show");
+      text.focus();
     },
     hideForm() {
+      const text = document.getElementById("voucherField");
       const form = document.getElementById("form");
       form.classList.remove("show");
+      text.blur();
     },
   },
-  mounted() {
-    let ref = document.getElementById("ref");
-    window.addEventListener("mousemove", function (e) {
-      let left = e.clientX;
-      let top = e.clientY;
-      ref.style.opacity = 1;
-      ref.style.left = left + "px";
-      ref.style.top = top + "px";
-    });
-    window.addEventListener("mouseout", () => {
-      ref.style.opacity = 0;
-    });
-
-    const main = document.getElementById("main");
-    if (main.getAttribute("data-id") == "notactivated") {
-      const text = document.getElementById("voucherField");
-      const button = document.getElementById("submit");
-      if (text.value == "") {
-        button.style.visibility = "hidden";
-      } else {
-        button.style.visibility = "visible";
-      }
-    } else {
-    }
-  },
+  mounted() {},
 };
 </script>
-
 <style>
-/*info*/
-.info {
-  opacity: 0;
-  transition: opacity 0.5s;
-  background-color: white;
-  color: black;
-  padding: 0em 0.5em;
-  position: absolute;
-  box-shadow: 1px 1px 5px black;
-}
-.info:hover {
-  cursor: none;
+main {
+  cursor: auto;
 }
 </style>

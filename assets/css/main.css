@@ -3,51 +3,59 @@ body {
   margin: 0;
   padding: 0;
   overflow: hidden;
+  color: white;
 }
 main {
+  cursor: auto;
   background-color: black;
-  width: 100vw;
+  width: 110vw;
+  left: -5vw;
+  right: -5vw;
   height: 100vh;
   margin: 0;
   overflow: hidden;
   position: relative;
-  display: grid;
+  display: flex;
   justify-content: center;
   align-items: center;
 }
-h1 {
-  font-size: 13vw;
+h1,
+.vaastcolson,
+.ghost {
+  font-size: 14vw;
   font-family: helvetica, sans serif;
   text-transform: uppercase;
   color: white;
   font-weight: 900;
-  cursor: pointer;
-  letter-spacing: -8px;
-  text-shadow: 0 0 10px white;
+  letter-spacing: -1vw;
+  //text-shadow: 0 0 0px white;
 }
 form {
   opacity: 0;
-  transition: 2s;
+  transition: 1.5s;
   width: 100%;
-  bottom: 0;
+  bottom: 2rem;
   position: absolute;
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  flex-direction: row;
   align-items: center;
-  gap: 1rem;
+  gap: 0rem;
   justify-content: center;
   &.show {
     opacity: 1;
   }
+}
+label {
 }
 button {
   background-color: #e2e2e2;
   border: silver solid 1px;
   border-radius: 4px;
   padding: 0 1em;
-  visibility: hidden;
+  visibility: visible;
 }
-textarea {
+input {
   border: 1px solid white;
   text-align: center;
   background-color: black;
@@ -56,14 +64,29 @@ textarea {
   font-size: 1.5rem;
   padding: 0;
   margin: 0;
-  height: 2.5rem;
-  width: 45%;
+  width: 90vw;
   outline: none !important;
-  &::placeholder {
-    display: block;
-    color: white;
-    -webkit-animation: flickering 0.2s linear infinite;
-    animation: flickering 0.2s linear infinite;
+}
+@media screen and (min-width: 800px) {
+  input {
+    margin-top: 1rem;
+    width: 60vw;
+  }
+}
+
+/*info*/
+.info {
+  font-size: 0.5em;
+  z-index: 800;
+  opacity: 0;
+  transition: opacity 0.5s;
+  background-color: beige;
+  color: black;
+  padding: 0em 0.5em;
+  position: absolute;
+  box-shadow: 1px 1px 3px silver;
+  &.show {
+    opacity: 0.95 !important;
   }
 }
 
@@ -74,7 +97,24 @@ textarea {
   text-transform: uppercase;
   font-weight: 900;
 }
-
+.ghost {
+  position: absolute;
+  z-index: 300;
+  background: red;
+  visibility: hidden;
+  display: block;
+  width: 100vw;
+}
+.vaastcolson {
+  position: absolute;
+  display: block;
+  width: 100vw;
+  /* Apply animation to this element */
+  -webkit-animation: scrolling-vaast 20s linear;
+  animation: scrolling-vaast 20s linear;
+  transform: translateX(-200%);
+  -webkit-transform: translateX(-200%);
+}
 .andonandonandon-input {
   display: inline-block;
   /* Apply animation to this element */
@@ -90,6 +130,25 @@ textarea {
   animation-delay: 10s;
 }
 /* scrolling-left is continuous/repeatly text */
+@keyframes scrolling-vaast {
+  0% {
+    transform: translateX(0);
+    -webkit-transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-210%);
+    -webkit-transform: translateX(-210%);
+  }
+}
+@-webkit-keyframes scrolling-vaast {
+  0% {
+    -webkit-transform: translateX(0%);
+  }
+  100% {
+    -webkit-transform: translateX(-210%);
+  }
+}
+
 @keyframes scrolling-left1 {
   0% {
     transform: translateX(100%);
@@ -125,22 +184,5 @@ textarea {
   }
   100% {
     -webkit-transform: translateX(-200%);
-  }
-}
-
-@-webkit-keyframes {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-@keyframes flickering {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
   }
 }
