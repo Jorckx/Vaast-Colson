@@ -11,14 +11,14 @@
     <p id="ref" class="info" :key="info">info</p>
   </main>
   <main v-else id="main" data-id="notactivated">
-    <h1>{{ title }}</h1>
-    <form action="submit" method="post">
+    <h1 @mouseover="showForm" @mouseout="hideForm">{{ title }}</h1>
+    <form action="submit" method="post" id="form">
       <textarea
         id="voucherField"
         v-model="voucherInput"
         oninput="this.value = this.value.replace(/\n/g,'')"
         @click="clearText"
-        placeholder="ACTIVATE THE ARTWORK"
+        placeholder="|"
       ></textarea>
       <button id="submit">submit</button>
     </form>
@@ -36,13 +36,21 @@ export default {
   data() {
     return {
       title: "Vaast Colson",
-      voucher: "true",
+      voucher: "",
     };
   },
   methods: {
     clearText() {
       const text = document.getElementById("voucherField");
       text.placeholder = " ";
+    },
+    showForm() {
+      const form = document.getElementById("form");
+      form.classList.add("show");
+    },
+    hideForm() {
+      const form = document.getElementById("form");
+      form.classList.remove("show");
     },
   },
   mounted() {

@@ -9,28 +9,36 @@ main {
   width: 100vw;
   height: 100vh;
   margin: 0;
-  padding: 2rem;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
+  position: relative;
+  display: grid;
   justify-content: center;
   align-items: center;
 }
 h1 {
-  font-size: 8rem;
+  font-size: 13vw;
   font-family: helvetica, sans serif;
   text-transform: uppercase;
   color: white;
   font-weight: 900;
+  cursor: pointer;
   letter-spacing: -8px;
+  text-shadow: 0 0 10px white;
 }
 form {
+  opacity: 0;
+  transition: 2s;
   width: 100%;
+  bottom: 0;
+  position: absolute;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
   justify-content: center;
+  &.show {
+    opacity: 1;
+  }
 }
 button {
   background-color: #e2e2e2;
@@ -45,12 +53,18 @@ textarea {
   background-color: black;
   color: white;
   resize: none;
-  font-size: 1rem;
+  font-size: 1.5rem;
   padding: 0;
   margin: 0;
-  height: 1.7rem;
+  height: 2.5rem;
   width: 45%;
   outline: none !important;
+  &::placeholder {
+    display: block;
+    color: white;
+    -webkit-animation: flickering 0.2s linear infinite;
+    animation: flickering 0.2s linear infinite;
+  }
 }
 
 /*remove p*/
@@ -111,5 +125,22 @@ textarea {
   }
   100% {
     -webkit-transform: translateX(-200%);
+  }
+}
+
+@-webkit-keyframes {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes flickering {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
