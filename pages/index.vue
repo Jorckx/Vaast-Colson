@@ -12,12 +12,6 @@ export default {
       correct: "",
     };
   },
-  transition(to, from) {
-    if (!from) {
-      return "slide-left";
-    }
-    return +to.query.page < +from.query.page ? "slide-right" : "slide-left";
-  },
 };
 </script>
 
