@@ -1,7 +1,7 @@
 <template>
   <main id="main" data-id="notactivated">
     <h1 @mouseover="showForm" @mouseout="hideForm">{{ title }}</h1>
-    <form id="form" method="post">
+    <form @submit.prevent="submit" id="form">
       <input
         id="voucherField"
         name="voucher"
@@ -10,21 +10,30 @@
         type="text"
         @keyup.enter="postData"
       />
+      <label for="voucherfield">{{ hey }}</label>
 
       <div v-if="form.voucher == 'ee2e2'">
         <label for="voucherfield">correct!</label>
-        <input type="text" id="date" name="date" :value="form.date" hidden />
-        <input type="text" id="time" name="time" :value="form.time" hidden />
-        <input type="submit" label="submit" hidden />
       </div>
       <label v-else for="voucherfield"></label>
+      <input type="text" id="date" name="date" :value="posts.date" hidden />
+      <input type="text" id="time" name="time" :value="posts.time" hidden />
+      <input type="submit" label="submit" />
     </form>
   </main>
 </template>
 
 <script>
-import axios from "axios";
-const baseUrl = "http://localhost:3000/forms/";
+//const express = require("express");
+//const Datastore = require("nedb");
+//const app = express();
+//app.listen(3000, () => console.log("listening at 3000"));
+//app.use(express.static("public"));
+//app.use(express.json({ limit: "1mb" }));
+//
+//const database = new Datastore("voucher.db");
+//database.loadDatabase();
+
 export default {
   name: "addVoucher",
   data() {
@@ -39,23 +48,16 @@ export default {
       },
     };
   },
+
   methods: {
-    async addVoucher(e) {
-      const res = await axios.post(baseUrl, this.form).then((result) => {
-        console.warn(result);
-      });
-      e.preventDefault();
-    },
-    postData(e) {
-      this.axios
-        .post("http://localhost:3000/form/", this.form)
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-      e.preventDefault();
+    submit(event) {
+      const { voucher, date, time } = Object.fromEntries(
+        new FormData(event.target)
+      );
+      this.voucher = voucher;
+      this.date = date;
+      this.time = time;
+      console.log(voucher, date, time);
     },
     showForm() {
       const text = document.getElementById("voucherField");

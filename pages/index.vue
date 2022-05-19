@@ -1,5 +1,5 @@
 <template>
-  <Activated v-if="correct == 'true'" />
+  <Activated v-if="voucher == 'true'" />
   <Vaastcolson v-else />
 </template>
 
@@ -9,7 +9,7 @@ export default {
   data() {
     return {
       title: "Vaast Colson",
-      correct: "",
+      voucher: "",
     };
   },
 };
