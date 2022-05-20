@@ -1,14 +1,24 @@
-<template></template>
+<template>
+  <ul id="ref" class="info" :key="info">
+    <li>Produced on 19/05/2022</li>
+    <li>Activated on 23/05/2022 10:30(:30s)pm</li>
+    <li>Time since activation: 12d:23m:23s</li>
+    <li>
+      <br />
+      <i>
+        “As the present makes way for the future, it leaves us with a past.”
+      </i>
+      <br />
+      — Vaast E.M. Colson
+    </li>
+  </ul>
+</template>
 
 <script>
 export default {
-  methods: {
-    showInfo() {
-      const ref = document.getElementById("ref");
-      ref.classList.add("show");
-    },
-  },
   mounted() {
+    this.findItems();
+
     const ref = document.getElementById("ref");
     window.addEventListener("mousemove", function (e) {
       let left = e.clientX;
@@ -26,9 +36,3 @@ export default {
   },
 };
 </script>
-
-<style>
-main {
-  cursor: none;
-}
-</style>

@@ -1,5 +1,5 @@
 <template>
-  <main id="main" data-id="notactivated">
+  <div>
     <h1 @mouseover="showForm" @mouseout="hideForm">{{ title }}</h1>
     <form @submit.prevent="submit" id="form">
       <input
@@ -21,7 +21,7 @@
         <input type="submit" label="submit" hidden />
       </div>
     </form>
-  </main>
+  </div>
 </template>
 
 <script>
@@ -51,6 +51,9 @@ export default {
   },
 
   methods: {
+    changeName() {
+      this.$emit("changename", "true");
+    },
     submit(event) {
       const { voucher, date, time } = Object.fromEntries(
         new FormData(event.target)

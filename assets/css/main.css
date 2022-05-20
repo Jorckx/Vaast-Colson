@@ -78,6 +78,13 @@ input {
   }
 }
 
+/* toggle buttons */
+.toggle {
+  position: absolute;
+  top: 1rem;
+  right: 20vw;
+}
+
 /*info*/
 .info {
   font-size: 0.7rem;
