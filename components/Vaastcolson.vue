@@ -8,6 +8,7 @@
         class="voucherField"
         oninput="this.value = this.value.replace(/\n/g,'')"
         type="text"
+        autocomplete="off"
         @keyup.enter="postData"
       />
 
