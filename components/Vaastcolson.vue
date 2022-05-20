@@ -40,7 +40,7 @@ export default {
     const d = new Date();
     return {
       title: "Vaast Colson",
-      form: {
+      posts: {
         voucher: null,
         date: d.toISOString().substr(0, 10),
         time:
