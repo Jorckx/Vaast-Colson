@@ -1,5 +1,5 @@
 <template>
-  <main v-if="posts.code == 'true'" id="main" data-id="activated">
+  <main v-if="unlock == key" id="main" data-id="activated">
     <span class="vaastcolson">Vaast Colson</span>
     <h1 class="andonandonandon" id="andonandonandon">
       <span class="andonandonandon-input">&nbsp;And on and on </span>
@@ -7,6 +7,7 @@
       <span class="andonandonandon-input2">&nbsp;And on and on&nbsp;</span>
     </h1>
     <Info />
+    <h2>{{ unlock }}</h2>
   </main>
   <main v-else id="main" data-id="notactivated">
     <h1 @mouseover="showForm" @mouseout="hideForm">{{ title }}</h1>
@@ -17,68 +18,68 @@
         class="voucherField"
         oninput="this.value = this.value.replace(/\n/g,'')"
         type="text"
-        v-model="posts.code"
+        v-model="posts.voucher"
         autocomplete="off"
         required
       />
-      <div v-if="posts.code == 'ee2e2'">
+      <div v-if="posts.voucher == 'ee2e2'">
         <label for="voucherfield">correct!</label>
         <input type="text" id="date" name="date" :value="posts.date" hidden />
         <input type="text" id="time" name="time" :value="posts.time" hidden />
         <input type="submit" label="submit" hidden />
       </div>
     </form>
-    <h2>{{ array.length }}</h2>
+    <h2>{{ unlock }}</h2>
   </main>
 </template>
 
 <script>
 import axios from "axios";
+import SheetDB from "sheetdb-js";
+
 export default {
   name: "IndexPage",
   data() {
     const d = new Date();
     return {
-      array: [],
+      key: "ee2e2",
       title: "Vaast Colson",
-      voucher: "",
+      unlock: "",
       posts: {
-        code: "",
-        date: d.toISOString().substr(0, 10),
+        voucher: "",
+        date: d.getDate(),
         time:
           d.getHours() + "h " + d.getMinutes() + "m " + d.getSeconds() + "s",
       },
     };
   },
-  computed: {
-    getCorrect() {},
-  },
+
   methods: {
-    findItems() {
+    findKey() {
       axios
-        .get("https://getform.io/f/8f62d2c7-91c7-4429-a368-3dfece0cf361")
-        .then(function (response) {
-          console.log(response);
-          this.itemArray = response;
-        });
+        .get("https://sheetdb.io/api/v1/r9lk45w70gis2/search?voucher=ee2e2")
+        .then((result) => {
+          this.unlock = result.data[0].voucher;
+          console.log(result.data[0].voucher);
+        })
+        .catch((error) => console.warn(error));
     },
     submit(event) {
       const { voucher, date, time } = Object.fromEntries(
         new FormData(event.target)
       );
-      this.voucher = voucher;
-      this.date = date;
-      this.time = time;
       console.log(voucher, date, time);
-      if (voucher == "ee2e2") {
+      if (voucher == this.key) {
         axios
-          .post("https://getform.io/f/8f62d2c7-91c7-4429-a368-3dfece0cf361", {
-            message: voucher,
-            date: date,
-            time: time,
+          .post("https://sheetdb.io/api/v1/r9lk45w70gis2", {
+            data: {
+              voucher: voucher,
+              date: date,
+              time: time,
+            },
           })
           .then((response) => console.log(response))
-          .catch((error) => console.log(error));
+          .catch((error) => console.warn(error));
       } else {
       }
     },
@@ -95,8 +96,8 @@ export default {
       text.blur();
     },
   },
-  mounted() {
-    this.findItems();
+  created() {
+    this.findKey();
   },
 };
 </script>

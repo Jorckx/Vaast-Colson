@@ -1,7 +1,7 @@
 <template>
   <ul id="ref" class="info" :key="info">
     <li>Produced on 19/05/2022</li>
-    <li>Activated on 23/05/2022 10:30(:30s)pm</li>
+    <li>Activated on 23/05/2022 10:30(:30s)pm {{ date }} {{ time }}</li>
     <li>Time since activation: 12d:23m:23s</li>
     <li>
       <br />
@@ -15,10 +15,31 @@
 </template>
 
 <script>
-export default {
-  mounted() {
-    this.findItems();
+import axios from "axios";
 
+export default {
+  data() {
+    return {
+      date: "",
+      time: "",
+    };
+  },
+  methods: {
+    setInfo() {
+      axios
+        .get("https://sheetdb.io/api/v1/r9lk45w70gis2/search?voucher=ee2e2")
+        .then((result) => {
+          this.date = result.data[0].date;
+          this.time = result.data[0].time;
+          console.log(result.data[0].voucher);
+        })
+        .catch((error) => console.warn(error));
+    },
+  },
+  created() {
+    this.setInfo();
+  },
+  mounted() {
     const ref = document.getElementById("ref");
     window.addEventListener("mousemove", function (e) {
       let left = e.clientX;
