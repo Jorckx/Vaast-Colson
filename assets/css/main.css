@@ -98,6 +98,8 @@ input {
   color: black;
   padding: 0em 0.5em;
   position: absolute;
+  bottom: 1rem;
+  left: calc(1rem + 5vw);
   box-shadow: 1px 1px 10px black;
   &.show {
     opacity: 0.98 !important;
@@ -114,10 +116,13 @@ input {
 .ghost {
   position: absolute;
   z-index: 300;
-  background: red;
-  visibility: hidden;
+  height: 20vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
   display: block;
-  width: 100vw;
 }
 .vaastcolson {
   position: absolute;
