@@ -5,6 +5,10 @@ body {
   overflow: hidden;
   color: white;
 }
+::selection {
+  color: white;
+  background-color: black;
+}
 main {
   cursor: auto;
   background-color: black;
