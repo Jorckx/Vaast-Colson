@@ -4,14 +4,16 @@ body {
   padding: 0;
   overflow: hidden;
   color: white;
+  background-color: black;
 }
 ::selection {
   color: white;
   background-color: black;
 }
 main {
+  opacity: 0;
+  transition: 2s;
   cursor: auto;
-  background-color: black;
   width: 110vw;
   left: -5vw;
   right: -5vw;
@@ -30,6 +32,7 @@ h1,
   font-family: helvetica, sans serif;
   text-transform: uppercase;
   color: white;
+  display: block;
   font-weight: 900;
   letter-spacing: -1vw;
   //text-shadow: 0 0 0px white;
@@ -119,7 +122,7 @@ input {
 .vaastcolson {
   position: absolute;
   display: block;
-  width: 100vw;
+  width: auto;
   /* Apply animation to this element */
   -webkit-animation: scrolling-vaast 20s linear;
   animation: scrolling-vaast 20s linear;

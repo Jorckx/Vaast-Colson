@@ -1,8 +1,9 @@
 <template>
   <main v-if="unlock == key" id="main" data-id="activated">
-    <span class="vaastcolson">Vaast Colson</span>
+    <span v-if="title == 'and on and on'" class="vaastcolson">{{ andon }}</span>
+    <span v-else class="vaastcolson">{{ title }}</span>
     <h1 class="andonandonandon" id="andonandonandon">
-      <span class="andonandonandon-input">&nbsp;And on and on </span>
+      <span class="andonandonandon-input">&nbsp;And on and on</span>
       <!-- duplicate above, change style to allow continous scroll -->
       <span class="andonandonandon-input2">&nbsp;And on and on&nbsp;</span>
     </h1>
@@ -45,6 +46,7 @@ export default {
       key: "ee2e2",
       title: "Vaast Colson",
       unlock: "",
+      andon: "and on and on",
       posts: {
         voucher: "",
         date: d.getDate(),
@@ -63,6 +65,15 @@ export default {
           console.log(result.data[0].voucher);
         })
         .catch((error) => console.warn(error));
+      axios
+        .get(
+          "https://sheetdb.io/api/v1/r9lk45w70gis2/search?voucher=and%20on%20and%20on"
+        )
+        .then((result) => {
+          this.title = result.data[0].voucher;
+          console.log(result.data[0].voucher);
+        })
+        .catch((error) => console.warn(error));
     },
     submit(event) {
       const { voucher, date, time } = Object.fromEntries(
@@ -77,6 +88,16 @@ export default {
               voucher: voucher,
               date: date,
               time: time,
+            },
+          })
+          .then((response) => console.log(response))
+          .catch((error) => console.warn(error));
+        axios
+          .post("https://sheetdb.io/api/v1/r9lk45w70gis2", {
+            data: {
+              voucher: "and on and on",
+              date: "",
+              time: "",
             },
           })
           .then((response) => console.log(response))
@@ -99,6 +120,12 @@ export default {
   },
   created() {
     this.findKey();
+  },
+  mounted() {
+    const main = document.getElementById("main");
+    setTimeout(() => {
+      main.style.opacity = "1";
+    }, "1000");
   },
 };
 </script>
