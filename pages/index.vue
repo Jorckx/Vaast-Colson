@@ -70,6 +70,7 @@ export default {
       );
       console.log(voucher, date, time);
       if (voucher == this.key) {
+        this.unlock = this.key;
         axios
           .post("https://sheetdb.io/api/v1/r9lk45w70gis2", {
             data: {
