@@ -10,15 +10,15 @@
         type="text"
         @keyup.enter="postData"
       />
-      <label for="voucherfield">{{ hey }}</label>
 
-      <div v-if="form.voucher == 'ee2e2'">
+      <div v-if="posts.voucher == 'ee2e2'">
         <label for="voucherfield">correct!</label>
       </div>
-      <label v-else for="voucherfield"></label>
-      <input type="text" id="date" name="date" :value="posts.date" hidden />
-      <input type="text" id="time" name="time" :value="posts.time" hidden />
-      <input type="submit" label="submit" />
+      <div v-else for="voucherfield">
+        <input type="text" id="date" name="date" :value="posts.date" hidden />
+        <input type="text" id="time" name="time" :value="posts.time" hidden />
+        <input type="submit" label="submit" hidden />
+      </div>
     </form>
   </main>
 </template>
