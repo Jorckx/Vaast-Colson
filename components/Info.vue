@@ -2,9 +2,9 @@
   <div>
     <div id="ghost" class="ghost"></div>
     <ul id="ref" class="info" :key="info">
-      <li>Produced on 19/05/2022</li>
-      <li>Activated on 23/05/2022 10:30(:30s)pm {{ date }} {{ time }}</li>
-      <li>Time since activation: 12d:23m:23s</li>
+      <li>Produced on 23-5-2022</li>
+      <li>Activated on {{ date }} {{ time }}</li>
+      <li>Time since activation: {{ passed }}</li>
       <li>
         <br />
         <i>
@@ -19,12 +19,14 @@
 
 <script>
 import axios from "axios";
+import { DateTime } from "luxon";
 
 export default {
   data() {
     return {
       date: "",
       time: "",
+      passed: "",
     };
   },
   methods: {
@@ -32,8 +34,14 @@ export default {
       axios
         .get("https://sheetdb.io/api/v1/r9lk45w70gis2/search?voucher=ee2e2")
         .then((result) => {
+          var end = DateTime.now().toLocaleString();
+          var start = result.data[0].date;
+          console.log(start, end);
+          var diffInDays = end.diff(start, "days");
+
           this.date = result.data[0].date;
           this.time = result.data[0].time;
+          this.passed = diffInDays.toObject();
           console.log(result.data[0].voucher);
         })
         .catch((error) => console.warn(error));

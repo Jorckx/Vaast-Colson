@@ -1,6 +1,8 @@
 <template>
   <main v-if="unlock == key" id="main" data-id="activated">
-    <span v-if="title == 'and on and on'" class="vaastcolson">{{ andon }}</span>
+    <span v-if="title == 'and on and on'" class="vaastcolson"
+      >and on and on</span
+    >
     <span v-else class="vaastcolson">{{ title }}</span>
     <h1 class="andonandonandon" id="andonandonandon">
       <span class="andonandonandon-input">&nbsp;And on and on</span>
@@ -37,6 +39,7 @@
 <script>
 import axios from "axios";
 import SheetDB from "sheetdb-js";
+import { DateTime } from "luxon";
 
 export default {
   name: "IndexPage",
@@ -46,10 +49,9 @@ export default {
       key: "ee2e2",
       title: "Vaast Colson",
       unlock: "",
-      andon: "and on and on",
       posts: {
         voucher: "",
-        date: d.getDate(),
+        date: DateTime.now().toLocaleString(),
         time:
           d.getHours() + "h " + d.getMinutes() + "m " + d.getSeconds() + "s",
       },
@@ -96,8 +98,8 @@ export default {
           .post("https://sheetdb.io/api/v1/r9lk45w70gis2", {
             data: {
               voucher: "and on and on",
-              date: "",
-              time: "",
+              date: date,
+              time: time,
             },
           })
           .then((response) => console.log(response))
