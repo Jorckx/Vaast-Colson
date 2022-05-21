@@ -131,8 +131,8 @@ input {
   /* Apply animation to this element */
   -webkit-animation: scrolling-vaast 20s linear;
   animation: scrolling-vaast 20s linear;
-  transform: translateX(-200%);
-  -webkit-transform: translateX(-200%);
+  transform: translateX(-210%);
+  -webkit-transform: translateX(-210%);
 }
 .andonandonandon-input {
   display: inline-block;

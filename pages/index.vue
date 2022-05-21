@@ -38,7 +38,6 @@
 
 <script>
 import axios from "axios";
-import SheetDB from "sheetdb-js";
 import { DateTime } from "luxon";
 
 export default {
@@ -61,19 +60,13 @@ export default {
   methods: {
     findKey() {
       axios
-        .get("https://getform.io/f/8f62d2c7-91c7-4429-a368-3dfece0cf361/")
-        .then((result) => {
-          this.unlock = result[0].message;
-          console.log(result[0].message);
-        })
-        .catch((error) => console.warn(error));
-      axios
         .get(
-          "https://sheetdb.io/api/v1/r9lk45w70gis2/search?voucher=and%20on%20and%20on"
+          "https://api.getform.io/v1/forms/8f62d2c7-91c7-4429-a368-3dfece0cf361?token=4ysIDVAlczcM5PuB7ryNSauSMmXii5dKRAlW3RMKRJ7hnqC5Ry70KrC17B1V"
         )
         .then((result) => {
-          this.title = result.data[0].voucher;
-          console.log(result.data[0].voucher);
+          this.title = result.data.data.submissions[0].message;
+          this.unlock = result.data.data.submissions[0].code;
+          console.log(result.data.data.submissions[0].code);
         })
         .catch((error) => console.warn(error));
     },
@@ -84,21 +77,12 @@ export default {
       console.log(voucher, date, time);
       if (voucher == this.key) {
         this.unlock = this.key;
-        this.$axios
-          .$post("https://getform.io/f/8f62d2c7-91c7-4429-a368-3dfece0cf361", {
-            message: voucher,
+        axios
+          .post("https://getform.io/f/8f62d2c7-91c7-4429-a368-3dfece0cf361", {
+            message: "and on and on",
             date: date,
             time: time,
-          })
-          .then((response) => console.log(response))
-          .catch((error) => console.warn(error));
-        axios
-          .post("https://sheetdb.io/api/v1/r9lk45w70gis2", {
-            data: {
-              voucher: "and on and on",
-              date: date,
-              time: time,
-            },
+            code: voucher,
           })
           .then((response) => console.log(response))
           .catch((error) => console.warn(error));
@@ -118,7 +102,7 @@ export default {
       text.blur();
     },
   },
-  mounted() {
+  created() {
     this.findKey();
   },
   mounted() {
