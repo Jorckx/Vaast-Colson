@@ -61,10 +61,10 @@ export default {
   methods: {
     findKey() {
       axios
-        .get("https://sheetdb.io/api/v1/r9lk45w70gis2/search?voucher=ee2e2")
+        .get("https://getform.io/f/8f62d2c7-91c7-4429-a368-3dfece0cf361/")
         .then((result) => {
-          this.unlock = result.data[0].voucher;
-          console.log(result.data[0].voucher);
+          this.unlock = result[0].message;
+          console.log(result[0].message);
         })
         .catch((error) => console.warn(error));
       axios
@@ -84,13 +84,11 @@ export default {
       console.log(voucher, date, time);
       if (voucher == this.key) {
         this.unlock = this.key;
-        axios
-          .post("https://sheetdb.io/api/v1/r9lk45w70gis2", {
-            data: {
-              voucher: voucher,
-              date: date,
-              time: time,
-            },
+        this.$axios
+          .$post("https://getform.io/f/8f62d2c7-91c7-4429-a368-3dfece0cf361", {
+            message: voucher,
+            date: date,
+            time: time,
           })
           .then((response) => console.log(response))
           .catch((error) => console.warn(error));
@@ -120,7 +118,7 @@ export default {
       text.blur();
     },
   },
-  created() {
+  mounted() {
     this.findKey();
   },
   mounted() {

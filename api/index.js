@@ -16,7 +16,7 @@ export default {
 };
 
 app.post("/post", async (req, res) => {
-  const { title, content, authorEmail } = req.body;
+  const { voucher, createdAt } = req.body;
   const post = await prisma.post.create({
     data: {
       voucher,
@@ -24,4 +24,13 @@ app.post("/post", async (req, res) => {
     },
   });
   res.status(200).json(post);
+});
+app.get("/post", async (req, res) => {
+  const { id } = req.params;
+  const post = await prisma.post.findUnique({
+    where: {
+      id: Number(id),
+    },
+  });
+  res.json(post);
 });

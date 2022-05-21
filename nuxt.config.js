@@ -40,7 +40,10 @@ export default {
   modules: ["@nuxtjs/axios"],
   axios: {
     baseURL: "http://127.0.0.1:3000/",
+    proxy: true,
+    credentials: false,
   },
+  serverMiddleware: ["~/api/index.js"],
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     extend(config, { isDev, isClient }) {
