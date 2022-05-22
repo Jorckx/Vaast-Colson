@@ -2,7 +2,7 @@
   <div>
     <div id="ghost" class="ghost"></div>
     <ul id="ref" class="info">
-      <li>Produced on 23-5-2022 at PLUS-ONE Gallery</li>
+      <li>Produced on 2022-05-23 at PLUS-ONE Gallery (Antwerp, BE)</li>
       <li>Activated on {{ date }} {{ time }}</li>
       <li>Days since activation: {{ passed }}</li>
       <li>
@@ -38,8 +38,8 @@ export default {
         .then((result) => {
           this.date = result.data.data.submissions[0].date;
           this.time = result.data.data.submissions[0].time;
-          var date1 = new Date("7-11-2010");
-          var date2 = new Date("12-12-2010");
+          var date1 = new Date(this.date);
+          var date2 = new Date(DateTime.now().toISODate());
           var timeDiff = Math.abs(date2.getTime() - date1.getTime());
           var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
           this.passed = diffDays;
