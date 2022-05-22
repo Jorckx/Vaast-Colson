@@ -45,15 +45,18 @@ form {
   position: absolute;
   display: flex;
   flex-wrap: wrap;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  gap: 0rem;
+  gap: 1rem;
   justify-content: center;
   &.show {
     opacity: 1;
   }
 }
-label {
+.correct {
+  display: block;
+  color: green;
+  font-size: 1.5rem;
 }
 button {
   background-color: #e2e2e2;
@@ -92,11 +95,11 @@ input {
 .info {
   font-size: 0.7rem;
   z-index: 800;
-  opacity: 0;
+  opacity: 1;
   transition: opacity 0.5s;
-  background-color: white;
-  color: black;
-  padding: 0em 0.5em;
+  background-color: black;
+  color: white;
+  //padding: 0em 0.5em;
   position: absolute;
   bottom: 1rem;
   left: calc(1rem + 5vw);

@@ -9,12 +9,20 @@
       <!-- duplicate above, change style to allow continous scroll -->
       <span class="andonandonandon-input2">&nbsp;And on and on&nbsp;</span>
     </h1>
-    <Info />
-    <h2>{{ unlock }}</h2>
+    <Infofield />
   </main>
   <main v-else id="main" data-id="notactivated">
     <h1 @mouseover="showForm" @mouseout="hideForm">{{ title }}</h1>
     <form @submit.prevent="submit" id="form">
+      <div v-if="posts.voucher == 'ee2e2'">
+        <label class="correct" for="voucherfield"
+          >correct! Enter to register the voucher and activate the
+          artwork.</label
+        >
+        <input type="text" id="date" name="date" :value="posts.date" hidden />
+        <input type="text" id="time" name="time" :value="posts.time" hidden />
+        <input type="submit" label="submit" hidden />
+      </div>
       <input
         id="voucherField"
         name="voucher"
@@ -25,14 +33,7 @@
         autocomplete="off"
         required
       />
-      <div v-if="posts.voucher == 'ee2e2'">
-        <label for="voucherfield">correct!</label>
-        <input type="text" id="date" name="date" :value="posts.date" hidden />
-        <input type="text" id="time" name="time" :value="posts.time" hidden />
-        <input type="submit" label="submit" hidden />
-      </div>
     </form>
-    <h2>{{ unlock }}</h2>
   </main>
 </template>
 
@@ -50,7 +51,7 @@ export default {
       unlock: "",
       posts: {
         voucher: "",
-        date: DateTime.now().toLocaleString(),
+        date: DateTime.now().toISODate(),
         time:
           d.getHours() + "h " + d.getMinutes() + "m " + d.getSeconds() + "s",
       },
@@ -66,7 +67,7 @@ export default {
         .then((result) => {
           this.title = result.data.data.submissions[0].message;
           this.unlock = result.data.data.submissions[0].code;
-          console.log(result.data.data.submissions[0].code);
+          console.log(result.data.data.submissions[0].message);
         })
         .catch((error) => console.warn(error));
     },

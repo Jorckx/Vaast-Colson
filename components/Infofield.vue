@@ -1,10 +1,10 @@
 <template>
   <div>
     <div id="ghost" class="ghost"></div>
-    <ul id="ref" class="info" :key="info">
-      <li>Produced on 23-5-2022</li>
+    <ul id="ref" class="info">
+      <li>Produced on 23-5-2022 at PLUS-ONE Gallery</li>
       <li>Activated on {{ date }} {{ time }}</li>
-      <li>Time since activation: {{ passed }}</li>
+      <li>Days since activation: {{ passed }}</li>
       <li>
         <br />
         <i>
@@ -32,23 +32,26 @@ export default {
   methods: {
     setInfo() {
       axios
-        .get("https://sheetdb.io/api/v1/r9lk45w70gis2/search?voucher=ee2e2")
+        .get(
+          "https://api.getform.io/v1/forms/8f62d2c7-91c7-4429-a368-3dfece0cf361?token=4ysIDVAlczcM5PuB7ryNSauSMmXii5dKRAlW3RMKRJ7hnqC5Ry70KrC17B1V"
+        )
         .then((result) => {
-          var end = DateTime.now().toLocaleString();
-          var start = result.data[0].date;
-          console.log(start, end);
-          var diffInDays = end.diff(start, "days");
-
-          this.date = result.data[0].date;
-          this.time = result.data[0].time;
-          this.passed = diffInDays.toObject();
-          console.log(result.data[0].voucher);
+          this.date = result.data.data.submissions[0].date;
+          this.time = result.data.data.submissions[0].time;
+          var date1 = new Date("7-11-2010");
+          var date2 = new Date("12-12-2010");
+          var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+          var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+          this.passed = diffDays;
         })
         .catch((error) => console.warn(error));
     },
+    //calculate() {
+    //},
   },
   created() {
     this.setInfo();
+    //this.calculate();
   },
   mounted() {
     const ref = document.getElementById("ref");

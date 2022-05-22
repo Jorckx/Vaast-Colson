@@ -1,4 +1,35 @@
-// index.js
+//import mongo from "./mongo";
+//
+//async function handleCall(req, res, next) {
+//
+//  if (req.url !== "/data") {
+//    return next;
+//  }
+//
+//  await mongo.connect();
+//  await mongo.db("test").collection("text").replaceOne(
+//    {
+//      _id: "mydoc",
+//    },
+//    {
+//      date: new Date(),
+//    },
+//    {
+//      upsert: true,
+//    }
+//  );
+//
+//  res.setHeader('Content-type', 'application/json');
+//  res.end(JSON.stringify({date: new Date()}))
+//}
+//
+//export default function (req, res, next) {
+//  handleCall(req, res, next).then((n) => {
+//    if (n) n();
+//  });
+//}
+
+// index.js;
 import express from "express";
 import { PrismaClient } from "@prisma/client";
 
@@ -26,11 +57,5 @@ app.post("/post", async (req, res) => {
   res.status(200).json(post);
 });
 app.get("/post", async (req, res) => {
-  const { id } = req.params;
-  const post = await prisma.post.findUnique({
-    where: {
-      id: Number(id),
-    },
-  });
   res.json(post);
 });
