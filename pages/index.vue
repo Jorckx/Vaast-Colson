@@ -12,9 +12,11 @@
     <Infofield />
   </main>
   <main v-else id="main" data-id="notactivated">
-    <h1 @mouseover="showForm" @mouseout="hideForm">{{ title }}</h1>
+    <h1 @mouseover="showForm" @click="showForm" @mouseout="hideForm">
+      {{ title }}
+    </h1>
     <form @submit.prevent="submit" id="form">
-      <div v-if="posts.voucher == 'ee2e2'">
+      <div v-if="posts.voucher == key">
         <label class="correct" for="voucherfield"
           >correct! Enter to register the voucher and activate the
           artwork.</label
@@ -46,7 +48,7 @@ export default {
   data() {
     const d = new Date();
     return {
-      key: "ee2e2",
+      key: "initial electric pigeon fancy text gym tower liberty inch ginger cream prepare",
       title: "Vaast Colson",
       unlock: "",
       posts: {

@@ -43,26 +43,19 @@ export default {
           var timeDiff = Math.abs(date2.getTime() - date1.getTime());
           var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
           this.passed = diffDays;
+          console.log(diffDays);
         })
         .catch((error) => console.warn(error));
     },
-    //calculate() {
-    //},
   },
   created() {
-    this.setInfo();
-    //this.calculate();
+    //this.setInfo();
   },
   mounted() {
+    this.setInfo();
+    //setInterval(this.setInfo(), 2000);
     const ref = document.getElementById("ref");
     const ghost = document.getElementById("ghost");
-    //window.addEventListener("mousemove", function (e) {
-    //  let left = e.clientX;
-    //  let top = e.clientY;
-    //  ref.style.left = left + "px";
-    //  ref.style.top = top + "px";
-    //});
-    //const ghost = document.getElementById("ghost");
     ghost.addEventListener("mousemove", () => {
       ref.classList.add("show");
     });
