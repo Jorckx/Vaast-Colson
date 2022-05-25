@@ -12,7 +12,7 @@ body {
 }
 main {
   opacity: 0;
-  transition: 2s;
+  transition: opacity 2s;
   cursor: auto;
   width: 110vw;
   left: -5vw;

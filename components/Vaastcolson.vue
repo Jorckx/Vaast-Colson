@@ -1,26 +1,5 @@
 <template>
   <div>
-    <h1 @mouseover="showForm" @mouseout="hideForm">{{ title }}</h1>
-    <form @submit.prevent="submit" id="form">
-      <input
-        id="voucherField"
-        name="voucher"
-        class="voucherField"
-        oninput="this.value = this.value.replace(/\n/g,'')"
-        type="text"
-        autocomplete="off"
-        @keyup.enter="postData"
-      />
-
-      <div v-if="posts.voucher == 'ee2e2'">
-        <label for="voucherfield">correct!</label>
-      </div>
-      <div v-else for="voucherfield">
-        <input type="text" id="date" name="date" :value="posts.date" hidden />
-        <input type="text" id="time" name="time" :value="posts.time" hidden />
-        <input type="submit" label="submit" hidden />
-      </div>
-    </form>
   </div>
 </template>
 

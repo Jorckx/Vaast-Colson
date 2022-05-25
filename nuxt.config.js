@@ -23,8 +23,17 @@ export default {
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: ["@/assets/css/main.css"],
 
+  // Kirby KQL Nuxt plugin
+  publicRuntimeConfig: {
+    kirby: {
+      url: process.env.KIRBY_SITE || "XXX",
+      username: process.env.KIRBY_USERNAME || "XXX",
+      password: process.env.KIRBY_PASSWORD || "XXX",
+    },
+  },
+
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: ["./node_modules/nuxt-kirby-kql"],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
