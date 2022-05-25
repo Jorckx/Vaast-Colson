@@ -12,7 +12,7 @@
     <Infofield />
   </main>
   <main v-else id="main" data-id="notactivated">
-    <h1 @mouseover="showForm" @mouseout="hideForm">{{ title }}</h1>
+    <h1 @mouseover="showForm" @click="showForm" @mouseout="hideForm">{{ title }}</h1>
     <form @submit.prevent="submit" id="form">
       <div v-if="posts.voucher == 'ee2e2'">
         <label class="correct" for="voucherfield"
@@ -60,14 +60,13 @@ export default {
 
   methods: {
     findKey() {
+      const csrf = "<?= csrf() ?>";
       axios
-        .get(
-          "https://api.getform.io/v1/forms/8f62d2c7-91c7-4429-a368-3dfece0cf361?token=4ysIDVAlczcM5PuB7ryNSauSMmXii5dKRAlW3RMKRJ7hnqC5Ry70KrC17B1V"
-        )
+        .get("https://t-e-a.gent/vouchers.json", {})
         .then((result) => {
-          this.title = result.data.data.submissions[0].message;
-          this.unlock = result.data.data.submissions[0].code;
-          console.log(result.data.data.submissions[0].message);
+          //this.title = result.data.voucher;
+          //this.unlock = result.data.data.submissions[0].code;
+          console.log(result);
         })
         .catch((error) => console.warn(error));
     },
