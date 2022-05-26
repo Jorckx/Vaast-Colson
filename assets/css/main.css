@@ -28,17 +28,25 @@ main {
 h1,
 .vaastcolson,
 .ghost {
-  font-size: 14vw;
+  font-size: 13vw;
   font-family: helvetica, sans serif;
   text-transform: uppercase;
   color: white;
   display: block;
   font-weight: 900;
-  letter-spacing: -1vw;
+  letter-spacing: -0.3vw;
   //text-shadow: 0 0 0px white;
 }
+@media screen and (min-width: 900px;) {
+  h1,
+  .vaastcolson,
+  .ghost {
+    font-size: 14vw;
+    letter-spacing: -1vw;
+  }
+}
 form {
-  opacity: 0;
+  opacity: 1;
   transition: 1.5s;
   width: 100%;
   bottom: 2rem;
@@ -53,10 +61,17 @@ form {
     opacity: 1;
   }
 }
+@media (hover: hover) {
+  form {
+    opacity: 0;
+  }
+}
+
 .correct {
   display: block;
   color: green;
   font-size: 1.5rem;
+  width: 90vw;
 }
 button {
   background-color: #e2e2e2;
@@ -95,7 +110,7 @@ input {
 .info {
   font-size: 0.7rem;
   z-index: 800;
-  opacity: 0;
+  opacity: 1;
   transition: opacity 0.5s;
   background-color: black;
   color: white;
@@ -106,6 +121,11 @@ input {
   box-shadow: 1px 1px 10px black;
   &.show {
     opacity: 0.98 !important;
+  }
+}
+@media (hover: hover) {
+  .info {
+    opacity: 0;
   }
 }
 
